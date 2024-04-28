@@ -18,7 +18,15 @@
     background-color: #afafaf;
 }
 
-.media a {
+  .media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  /* Style untuk ikon media sosial */
+  .media a {
     display: inline-block;
     width: 50px;
     height: 50px;
@@ -26,13 +34,22 @@
     background-color: #fff;
     border-radius: 50%;
     font-size: 20px;
-    color: #fff;
+    color: #000000;
     text-align: center;
     line-height: 50px;
-    margin-right: 15px;
-    margin-bottom: 5px;
+    margin: 0 10px;
+    /* Ubah margin menjadi 10px di semua sisi */
+    transition: transform 0.3s ease;
+    /* Efek hover */
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
-}
+  }
+
+  /* Style untuk ikon media sosial ketika dihover */
+  .media a:hover {
+    transform: translateY(-5px);
+    /* Geser ikon ke atas saat dihover */
+
+  }
 
 .media a:hover{
     background-color: rgb(184, 184, 184);
