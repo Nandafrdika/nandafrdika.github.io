@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            text-align: center;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            margin: 20px auto;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        .cell:hover {
+            background-color: #f1f1f1;
+        }
+        .winner {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Tic-Tac-Toe</h1>
+        
+       
+        <audio id="background-audio" loop>
+            <source src="jpg/meow.mp3" type="audio/mpeg">
+            <source src="your-audio-file.ogg" type="audio/ogg">
+        </audio>
+
+      
+        <button class="btn btn-primary mt-3" id="start-button">Start Game</button>
+
+        
+        <div class="board hidden" id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <div class="winner hidden" id="winner"></div>
+        <button class="btn btn-primary mt-3 hidden" id="reset">Play Again</button>
+        <br>
+        <a class="btn btn-warning mt-3" href="index.html">Back to Portofolio</a>
+    </div>
+
+    <script>
+        const board = document.getElementById('board');
+        const cells = document.querySelectorAll('.cell');
+        const winnerDiv = document.getElementById('winner');
+        const resetButton = document.getElementById('reset');
+        const startButton = document.getElementById('start-button');
+        const audio = document.getElementById('background-audio');
+
+        let currentPlayer = 'X';
+        let gameActive = false;
+        const gameState = Array(9).fill(null);
+
+        const winningCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        const checkWinner = () => {
+            for (const combination of winningCombinations) {
+                const [a, b, c] = combination;
+                if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+                    return gameState[a];
+                }
+            }
+            return gameState.includes(null) ? null : 'Draw';
+        };
+
+        const handleClick = (index) => {
+            if (gameState[index] || !gameActive) return;
+
+            gameState[index] = currentPlayer;
+            cells[index].innerText = currentPlayer;
+
+            const winner = checkWinner();
+            if (winner) {
+                gameActive = false;
+                winnerDiv.innerText = winner === 'Draw' ? 'It\'s a Draw!' : `${winner} Wins!`;
+                winnerDiv.style.color = winner === 'Draw' ? 'orange' : winner === 'X' ? 'blue' : 'red';
+                winnerDiv.classList.remove('hidden');
+                resetButton.classList.remove('hidden');
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        };
+
+        cells.forEach((cell, index) => {
+            cell.addEventListener('click', () => handleClick(index));
+        });
+
+        resetButton.addEventListener('click', () => {
+            gameState.fill(null);
+            cells.forEach(cell => cell.innerText = '');
+            winnerDiv.innerText = '';
+            currentPlayer = 'X';
+            gameActive = true;
+        });
+
+        startButton.addEventListener('click', () => {
+            gameActive = true;
+            startButton.classList.add('hidden');
+            board.classList.remove('hidden');
+            winnerDiv.classList.add('hidden');
+            resetButton.classList.add('hidden');
+            audio.muted = false; 
+            audio.play().catch(error => {
+                console.error('Playback error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

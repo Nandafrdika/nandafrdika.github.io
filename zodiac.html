@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horoscope Calculator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+        }
+        #result {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">Horoscope Calculator</h1>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <form id="zodiac-form">
+                    <div class="form-group">
+                        <label for="birthdate">Enter your birthdate:</label>
+                        <input type="date" class="form-control" id="birthdate" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Get Zodiac Sign</button>
+                </form>
+                <div id="result" class="mt-3 text-center"></div>
+                <a class="btn btn-warning btn-block" href="index.html">Back To Portofolio</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('zodiac-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const month = birthdate.getUTCMonth() + 1; 
+            const day = birthdate.getUTCDate();
+
+            let zodiacSign = '';
+
+            if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) {
+                zodiacSign = 'Aquarius';
+            } else if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) {
+                zodiacSign = 'Pisces';
+            } else if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
+                zodiacSign = 'Aries';
+            } else if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) {
+                zodiacSign = 'Taurus';
+            } else if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) {
+                zodiacSign = 'Gemini';
+            } else if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) {
+                zodiacSign = 'Cancer';
+            } else if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) {
+                zodiacSign = 'Leo';
+            } else if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) {
+                zodiacSign = 'Virgo';
+            } else if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) {
+                zodiacSign = 'Libra';
+            } else if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) {
+                zodiacSign = 'Scorpio';
+            } else if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) {
+                zodiacSign = 'Sagittarius';
+            } else if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) {
+                zodiacSign = 'Capricorn';
+            }
+
+            document.getElementById('result').innerText = `Your Zodiac Sign is: ${zodiacSign}`;
+        });
+    </script>
+</body>
+</html>
