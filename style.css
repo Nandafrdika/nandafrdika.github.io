@@ -5,17 +5,17 @@
     box-sizing: border-box;
 }
 
-@font-face {
+/* @font-face {
     font-family: 'MyCustomFont';
     src: url('path-to-font/MyCustomFont.woff2') format('woff2'),
          url('path-to-font/MyCustomFont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 body {
     margin: 0;
-    font-family: 'MyCustomFont', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: #0E1D71;
     color: white;
     display: flex;
